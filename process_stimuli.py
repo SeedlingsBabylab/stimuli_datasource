@@ -1,5 +1,4 @@
 import xlrd
-import csv
 import sys
 
 if len(sys.argv) != 4:
@@ -75,5 +74,12 @@ for r in range(1, 5):
    data[r][3] = data[r][3].replace("practice%d" % r, word)
 
 with open(sys.argv[3], 'wb') as f:
-   writer = csv.writer(f)
-   writer.writerows(data)
+   for row in data:
+      first = True
+      for item in row:
+         if not first:
+            f.write('\t')
+            first = False
+         f.write(item)
+      f.write('\n')
+
