@@ -78,9 +78,9 @@ with open(sys.argv[3], 'wb') as f:
         first = True
         for item in row:
             print item
-        if not first:
-            f.write('\t')
-            first = False
-        f.write(str(item))
-    f.write('\n')
+            if not first:
+                f.write('\t')
+                first = False
+            f.write(str(item))
+        f.write('\n')
 
