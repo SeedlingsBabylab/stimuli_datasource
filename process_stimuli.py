@@ -77,29 +77,30 @@ for r in range(1, 5):
 
 print "data: " + str(data)
 
-with open(sys.argv[3], 'wb') as f:
-    for row in data:
-        #print "row: " + str(row)
-        first = True
-        for item in row:
-            #print item
-            if not first:
-                f.write('\t')
-                print '\t'
-                first = False
-            f.write(str(item))
-            print str(item)
-        f.write('\n')
-        print '\n'
+# with open(sys.argv[3], 'wb') as f:
+#     for row in data:
+#         #print "row: " + str(row)
+#         first = True
+#         for item in row:
+#             #print item
+#             if not first:
+#                 f.write('\t')
+#                 print '\t'
+#                 first = False
+#             f.write(str(item))
+#             print str(item)
+#         f.write('\n')
+#         print '\n'
 
 
-# with open(sys.argv[3], 'w') as file:
-#
-#     csvwriter = csv.writer(file, delimiter='\t')
-#
-#     csvwriter.writerow(data[0])
-#
-#     for row in data[1:]:
+with open(sys.argv[3], 'w') as file:
+
+    csvwriter = csv.writer(file, delimiter='\t')
+
+    csvwriter.writerow(data[0])
+
+    for row in data[1:]:
+        csvwriter.writerow(row)
 
 
 
