@@ -1,5 +1,6 @@
 import xlrd
 import sys
+import csv
 
 if len(sys.argv) != 4:
     print "missing arguments"
@@ -73,14 +74,33 @@ for r in range(1, 5):
     data[r][1] = data[r][1].replace("practice%d" % r, word)
     data[r][3] = data[r][3].replace("practice%d" % r, word)
 
+
+print "data: " + str(data)
+
 with open(sys.argv[3], 'wb') as f:
     for row in data:
+        #print "row: " + str(row)
         first = True
         for item in row:
-            print item
+            #print item
             if not first:
                 f.write('\t')
+                print '\t'
                 first = False
             f.write(str(item))
+            print str(item)
         f.write('\n')
+        print '\n'
+
+
+# with open(sys.argv[3], 'w') as file:
+#
+#     csvwriter = csv.writer(file, delimiter='\t')
+#
+#     csvwriter.writerow(data[0])
+#
+#     for row in data[1:]:
+
+
+
 
