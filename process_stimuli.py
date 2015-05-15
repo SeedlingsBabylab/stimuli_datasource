@@ -32,6 +32,7 @@ while True:
 
 #0) ..., and then take the subset of the template that is the order corresponding to column G's value (1-4)
 while template_sheet.cell_value(row, 12) == order:
+    print "row: " + str(row) + "  template value: " + str(template_sheet.cell_value(row, 12)) + "  order: " + str(order)
     row_data = []
     for col in range(13):
         val = template_sheet.cell_value(row, col)
@@ -40,7 +41,12 @@ while template_sheet.cell_value(row, 12) == order:
         else:
             row_data.append(val)
     data.append(row_data)
-    row += 1
+    print "_dimnrows: " + str(template_sheet._dimnrows)
+
+    if row >= template_sheet._dimnrows - 1:
+        break
+    else:
+        row += 1
 
 #1) Use the 20 rows (after the header row) in columns A and B to write into columns B through D of the spreadsheet
 #3) replace 1-16 in the .wav and .jpg with the words numbered 1-16 (e.g. 1.jpg becomes banana.jpg and can_banana.jpg)
@@ -77,29 +83,26 @@ for r in range(1, 5):
 
 print "data: " + str(data)
 
+
 # with open(sys.argv[3], 'wb') as f:
 #     for row in data:
-#         #print "row: " + str(row)
 #         first = True
 #         for item in row:
-#             #print item
 #             if not first:
 #                 f.write('\t')
-#                 print '\t'
 #                 first = False
 #             f.write(str(item))
-#             print str(item)
 #         f.write('\n')
-#         print '\n'
 
 
+# This replaces the commented section above.
 with open(sys.argv[3], 'w') as file:
 
     csvwriter = csv.writer(file, delimiter='\t')
 
-    csvwriter.writerow(data[0])
+    csvwriter.writerow(data[0])     # write the header row
 
-    for row in data[1:]:
+    for row in data[1:]:    # write each subsequent row (skipping the header)
         csvwriter.writerow(row)
 
 
