@@ -32,7 +32,7 @@ while True:
 
 #0) ..., and then take the subset of the template that is the order corresponding to column G's value (1-4)
 while template_sheet.cell_value(row, 12) == order:
-    print "row: " + str(row) + "  template value: " + str(template_sheet.cell_value(row, 12)) + "  order: " + str(order)
+    #print "row: " + str(row) + "  template value: " + str(template_sheet.cell_value(row, 12)) + "  order: " + str(order)
     row_data = []
     for col in range(13):
         val = template_sheet.cell_value(row, col)
@@ -41,7 +41,7 @@ while template_sheet.cell_value(row, 12) == order:
         else:
             row_data.append(val)
     data.append(row_data)
-    print "_dimnrows: " + str(template_sheet._dimnrows)
+    #print "_dimnrows: " + str(template_sheet._dimnrows)
 
     if row >= template_sheet._dimnrows - 1:
         break
