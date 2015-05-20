@@ -164,7 +164,7 @@ class MainWindow:
         self.template_file = tkFileDialog.askopenfilename()
 
         self.template_book = xlrd.open_workbook(self.template_file)
-        self.template_sheet = template_book.sheet_by_index(0)
+        self.template_sheet = self.template_book.sheet_by_index(0)
 
         self.template_loaded_label.grid(row=3, column=1)
 
@@ -173,7 +173,7 @@ class MainWindow:
         self.stimuli_file = tkFileDialog.askopenfilename()
 
         self.stimuli_book = xlrd.open_workbook(self.stimuli_file)
-        self.stimuli_sheet = stimuli_book.sheet_by_index(0)
+        self.stimuli_sheet = self.stimuli_book.sheet_by_index(0)
 
         self.stimuli_loaded_label.grid(row=3, column=2)
 
@@ -184,11 +184,11 @@ class MainWindow:
         #0) keep the header row, ...
         hdr = []
         for c in range(13):
-            hdr.append(template_sheet.cell_value(0, c))
+            hdr.append(self.template_sheet.cell_value(0, c))
         self.data.append(hdr)
         print hdr
         #get column G's value
-        order = stimuli_sheet.cell_value(1, 6)
+        order = self.stimuli_sheet.cell_value(1, 6)
 
         #find the first row corresponding to the G subset
         row = 1
@@ -222,16 +222,16 @@ class MainWindow:
             index = int(self.data[r][1].split('.')[0])
             col_e = self.stimuli_sheet.cell_value(index + 4, 4)
             if col_e == "NA":
-                data[r][1] = self.stimuli_sheet.cell_value(index + 4, 1) + ".jpg"
+                self.data[r][1] = self.stimuli_sheet.cell_value(index + 4, 1) + ".jpg"
             else:
-                data[r][1] = self.stimuli_sheet.cell_value(index + 4, 4) + ".jpg"
+                self.data[r][1] = self.stimuli_sheet.cell_value(index + 4, 4) + ".jpg"
 
             index = int(self.data[r][2].split('.')[0])
             col_e = self.stimuli_sheet.cell_value(index + 4, 4)
             if col_e == "NA":
                 self.data[r][2] = self.stimuli_sheet.cell_value(index + 4, 1) + ".jpg"
             else:
-                self.data[r][2] = stimuli_sheet.cell_value(index + 4, 4) + ".jpg"
+                self.data[r][2] = self.stimuli_sheet.cell_value(index + 4, 4) + ".jpg"
 
             prefix = self.data[r][3].split('.')[0].split('_')[0]
             index = int(self.data[r][3].split('.')[0].split('_')[1])
@@ -259,9 +259,9 @@ class MainWindow:
 
             csvwriter = csv.writer(file, delimiter='\t')
 
-            csvwriter.writerow(data[0])     # write the header row
+            csvwriter.writerow(self.data[0])     # write the header row
 
-            for row in data[1:]:    # write each subsequent row (skipping the header)
+            for row in self.data[1:]:    # write each subsequent row (skipping the header)
                 csvwriter.writerow(row)
 
 if __name__ == "__main__":
